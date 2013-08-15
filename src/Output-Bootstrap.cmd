@@ -11,4 +11,4 @@ xcopy "..\lib\jquery 1.10.2" Output\jquery /E /Y /I
 set nxslt=..\lib\nxslt\nxslt.exe
 
 @echo === Normalise ===
-%nxslt% %project% Export-to-html.xslt -o Output\Questions.html 
+%nxslt% %project% Output-to-Bootstrap.xslt -o Output\index.html 
