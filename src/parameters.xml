@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Parameters>
+	<Heading id='bus-case' name='Business Cases'>
+		<Section name='bus-case' marker='icon' icon='idea' recurse='true'>
+			<Paragraph name='summary' marker='node' text='Summary'/>
+			<Table name='bc_data' marker='node' text='Data Points'>
+				<Column name='Question' select='.'/>
+				<Column name='Answer' >
+				<html>
+					<input type="text" placeholder="Type something…"/>
+				</html>
+				</Column>
+			</Table>
+			<Table name='bc_tech' marker='node' text='Technology Questions'>
+				<Column name='Technology Question' select='.'/>
+				<Column name='Answer' >
+				<html>
+					<input type="text" placeholder="Type something…"/>
+				</html>
+				</Column>
+			</Table>
+			<Table name='bc_kpi' marker='node' text='Interpretation'>
+				<Column name='Interpretation' select='.'/>
+				<Column name='Answer' >
+				<html>
+					<input type="text" placeholder="Type something…"/>
+				</html>
+				</Column>
+			</Table>
+		</Section>
+	</Heading>
+	<Heading id='people' name='People'>
+		<List name='people' marker='parent-text' text='People' recurse='true'/>
+	</Heading>
+	<Heading id='questions' name='Questions'>
+		<Table name='questions' marker='parent-text' text='Data Points' recurse='true'>
+			<Column name='Question' select='.'/>
+			<Column name='Answer' >
+				<html>
+					<input type="text" placeholder="Type something…"/>
+				</html>
+			</Column>
+			<Column name='Business Case'>
+				<Link select='parent.parent'/>
+			</Column>
+		</Table>
+	</Heading>
+	<Heading id='technology' name='Technology Questions'>
+		<Table name='technology' marker='parent-text' text='Technology Questions'>
+			<Column name='Question' select='.'/>
+			<Column name='Answer' >
+				<html>
+					<input type="text" placeholder="Type something…"/>
+				</html>
+			</Column>
+			<Column name='Business Case' select='parent.parent'/>
+		</Table>
+	</Heading>
+
+</Parameters>
