@@ -10,7 +10,13 @@
 
 	 <xsl:include href='Format-Table.xslt'/>
 	 <xsl:include href='Format-List.xslt'/>
-	 
+	 <xsl:include href='Format-Link.xslt'/>
+	 <xsl:include href='Format-Section.xslt'/>
+	 <xsl:include href='Format-Paragraph.xslt'/>
+     <xsl:include href='Format-Badge.xslt'/>
+	
+	<xsl:param name='debug'>1</xsl:param>
+	
 	<xsl:param name='parameters'>parameters.xml</xsl:param>
 	<xsl:variable name='doc-parameters' select='document($parameters)'/>
 	
@@ -21,9 +27,8 @@
 	<xsl:key name='nodes-by-text' match='node' use='@TEXT'/>
 	<xsl:key name='nodes-by-id' match='node' use='@ID'/>
 	
-	<xsl:variable name='root' select='/'/>
-	
 	<xsl:variable name='dot'>.</xsl:variable>
+	<xsl:variable name='root' select='/'/>
 	
 	<xsl:template match="/">
     <html lang="en">
@@ -51,29 +56,39 @@
           }
         </style>
       </head>
-      <body>
+      <body data-spy="scroll" data-target=".side-nav">
 		<xsl:variable name='headings' select='$doc-parameters/Parameters/Heading'/>
 		
 		
 		<xsl:variable name='sections' select="key('nodes-by-icon', 'full-1')"/>
-	  
-        <xsl:call-template name="build-menu">
-          <xsl:with-param name="nodes" select='$headings'/>
-        </xsl:call-template>
-		
-		
-        <div class="container">
-		<xsl:for-each select='$headings'>
-			<a name='{@id}'/>
-			<h3><xsl:value-of select='@name'/></h3>
-			<xsl:apply-templates />
-			<hr/>
-		</xsl:for-each>
-				
- 
-        </div>
+	 
+	   <xsl:call-template name="build-top-menu">
+			<xsl:with-param name="nodes" select='$headings'/>
+		</xsl:call-template>	
+	
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2">
+				   <xsl:call-template name="build-side-menu">
+						<xsl:with-param name="nodes" select='$headings'/>
+					</xsl:call-template>	
+				</div>
+				<div class='span10'>
+					<hr/>
+					<xsl:for-each select='$headings'>
+						<a name='{@id}'/>
+						<h1><xsl:value-of select='@name'/></h1>
+						<xsl:apply-templates>
+							<xsl:with-param name='context' select='$root'/>
+						</xsl:apply-templates>
+						<hr/>
+					</xsl:for-each>
+				</div>
+			</div>
+         </div>
         <script src="jquery/jquery.js"/>
         <script src="bootstrap/js/bootstrap.js"/>
+		<small class='pull-right'>Built using <a href='http://getbootstrap.com/2.3.2/'>Bootstrap 2.3.2</a></small>
       </body>
     </html>
   </xsl:template> 
@@ -86,29 +101,8 @@
   </xsl:template>
 
   
-  <xsl:template match="Link[@select='.']">
-	<xsl:param name='node'/>
-	<a href="{concat('#',$node/@ID)}">			
-		<xsl:value-of select='$node/@TEXT'/>
-	</a>
-  </xsl:template>
-
-  <xsl:template match="Link[@select='parent']">
-	<xsl:param name='node'/>
-	<a href="{concat('#',$node/../@ID)}">			
-		<xsl:value-of select='$node/../@TEXT'/>
-	</a>
-  </xsl:template>
-
-  <xsl:template match="Link[@select='parent.parent']">
-	<xsl:param name='node'/>
-	<a href="{concat('#',$node/../../@ID)}">			
-		<xsl:value-of select='$node/../../@TEXT'/>
-	</a>
-  </xsl:template>
-
   
-    <xsl:template name="item-badge">
+    <xsl:template name="badge">
     <xsl:param name="text">0</xsl:param>
     <xsl:param name="color">green</xsl:param>
     <xsl:variable name="badge-class">
@@ -140,7 +134,7 @@
 	</xsl:for-each>
    </xsl:template>
   
-   <xsl:template name="build-menu">
+   <xsl:template name="build-top-menu">
     <xsl:param name="nodes"/>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -175,12 +169,64 @@
         </div>
       </div>
     </div>
+	
   </xsl:template>
   
+ <xsl:template name="build-side-menu">
+    <xsl:param name="nodes"/>
+    <ul class="nav nav-list affix side-nav">
+		<li class="brand" ><a href="#"><xsl:value-of select='/map/node/@TEXT'/></a></li>
+		<xsl:for-each select='$nodes'>
+			<xsl:choose>
+				<xsl:when test='@TEXT'>
+				<li>
+				<a href="{concat('#', @ID)}"><xsl:value-of select='@TEXT'/></a>
+				</li>
+				</xsl:when>
+				<xsl:otherwise>
+				<li>
+				<a href="{concat('#', @id)}"><xsl:value-of select='@name'/></a>
+				</li>
+					
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:for-each>  
+	</ul>
+  </xsl:template>
+
+	<xsl:template name='node-as-comment'>
+		<xsl:choose>
+			<xsl:when test="$debug = '2'">
+				<small class="muted">
+					<xsl:text>[ </xsl:text>
+					<xsl:value-of select='name()'/>
+					<xsl:apply-templates select='@*' mode='comment'/> 
+					<xsl:text> /]</xsl:text>
+				</small>
+			</xsl:when>
+			<xsl:when test="$debug = '1'">
+				<xsl:comment>
+					<xsl:text>[ </xsl:text>
+					<xsl:value-of select='name()'/>
+					<xsl:apply-templates select='@*' mode='comment'/> 
+					<xsl:text> /]</xsl:text>
+				</xsl:comment>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match='@*' mode='comment'>
+		<xsl:text> </xsl:text>
+		<xsl:value-of select='name()'/>
+		<xsl:text>:= '</xsl:text>
+		<xsl:value-of select='.'/>
+		<xsl:text>' </xsl:text>
+	</xsl:template>
 
   <xsl:template match="@* | node()">
     <xsl:copy>
       <xsl:apply-templates select="@* | node()"/>
     </xsl:copy>
   </xsl:template>
+  
 </xsl:stylesheet>
