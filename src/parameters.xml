@@ -1,32 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Parameters>
 	<Heading id='bus-case' name='Business Cases'>
-		<Section name='bus-case' marker='icon' icon='idea' recurse='true'>
-			<Paragraph name='summary' marker='node' text='Summary'/>
-			<Table name='bc_data' marker='node' text='Data Points'>
-				<Column name='Question' select='.'/>
-				<Column name='Answer' >
+		<Section name='bus-case' marker='icon' icon='idea'>
+			<Badge color='green' text='Business Case'/>
+			<Badge color='blue' select='parent'/>
+<!--			<Collapse>  -->
+			<Table marker='current'>
 				<html>
-					<input type="text" placeholder="Type something…"/>
+					<tr><th>Summary</th><th>Business Process</th></tr>
 				</html>
-				</Column>
-			</Table>
-			<Table name='bc_tech' marker='node' text='Technology Questions'>
-				<Column name='Technology Question' select='.'/>
-				<Column name='Answer' >
-				<html>
-					<input type="text" placeholder="Type something…"/>
-				</html>
-				</Column>
-			</Table>
-			<Table name='bc_kpi' marker='node' text='Interpretation'>
-				<Column name='Interpretation' select='.'/>
-				<Column name='Answer' >
-				<html>
-					<input type="text" placeholder="Type something…"/>
-				</html>
-				</Column>
-			</Table>
+				<Row>
+					<Data>
+						<Paragraph name='summary' marker='parent-text' text='Summary'/>
+					</Data>
+					<Data>
+						<List name='business-process' marker='parent-text' text='Business Process' recurse='true'/>
+					</Data>
+				</Row>
+				<Row>
+					<Data>
+						<Table name='bc_data' marker='parent-text' text='Data Points'>
+							<Column name='Data Points' select='.'/>
+							<Column name='Answer' >
+								<html>
+									<input type="text" placeholder="Type something…"/>
+								</html>
+							</Column>
+						</Table>
+					</Data>
+					<Data>
+						<Table name='bc_tech' marker='parent-text' text='Technology Questions'>
+							<Column name='Technology Question' select='.'/>
+							<Column name='Answer' >
+								<html>
+									<input type="text" placeholder="Type something…"/>
+								</html>
+							</Column>
+						</Table>
+						<Table name='bc_kpi' marker='parent-text' text='Interpretation'>
+							<Column name='Interpretation' select='.'/>
+							<Column name='Answer' >
+								<html>
+									<input type="text" placeholder="Type something…"/>
+								</html>
+							</Column>
+						</Table>
+					</Data>
+				</Row>
+			</Table>	
+<!--			</Collapse> -->
 		</Section>
 	</Heading>
 	<Heading id='people' name='People'>
@@ -54,6 +76,22 @@
 				</html>
 			</Column>
 			<Column name='Business Case' select='parent.parent'/>
+		</Table>
+	</Heading>
+
+	<Heading id='vendors' name='Vendors'>
+		<Table name='vendors' marker='parent-text' text='Vendors'>
+			<Column name='Company' select='.'/>
+			<Column name='Product' >
+				<Table name='vendors' marker='node'>
+					<Column name='Product' select='.'/>
+					<Column name='Check'>
+					<html>
+						<label class="checkbox"><input type="checkbox"/> Present? </label>
+					</html>
+					</Column>
+				</Table>
+			</Column>			
 		</Table>
 	</Heading>
 
