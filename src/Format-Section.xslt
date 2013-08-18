@@ -37,14 +37,11 @@
 	<xsl:param name='section'/>
 	<xsl:variable name='node' select='.'/>
 	<xsl:variable name='unique-id' select="concat(generate-id($node), '-', generate-id($section))"/>
-	<a name='{$node/@ID}'/>
-	<h2 data-toggle='collapse' data-target="{concat('#', $unique-id)}"><xsl:value-of select='$node/@TEXT'/></h2>
-	<div id="{$unique-id}" class='collapse'>
+
 	<xsl:apply-templates select='$section/*'>
 		<xsl:with-param name='node' select='$node'/>
 		<xsl:with-param name='context' select='$node'/>
 	</xsl:apply-templates>
-	</div>
   </xsl:template>
  				
 </xsl:stylesheet>

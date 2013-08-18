@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Parameters>
 	<Heading id='bus-case' name='Business Cases'>
-		<Section name='bus-case' marker='icon' icon='idea'>
-			<Badge color='green' text='Business Case'/>
-			<Badge color='blue' select='parent'/>
-<!--			<Collapse>  -->
+		<Section name='bus-case' marker='icon' icon='idea' >
+			<Collapse type='summary'>
+				<Header type='h1' select='node' link-target='true'/>
+				<Badge color='green' text='Business Case'/>
+				<Badge color='blue' select='parent'/>
+			</Collapse>
+			<Collapse type='collapsed'> 
 			<Table marker='current'>
 				<html>
 					<tr><th>Summary</th><th>Business Process</th></tr>
@@ -48,7 +51,7 @@
 					</Data>
 				</Row>
 			</Table>	
-<!--			</Collapse> -->
+			</Collapse>
 		</Section>
 	</Heading>
 	<Heading id='people' name='People'>

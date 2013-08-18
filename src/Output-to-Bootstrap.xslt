@@ -14,6 +14,8 @@
 	 <xsl:include href='Format-Section.xslt'/>
 	 <xsl:include href='Format-Paragraph.xslt'/>
      <xsl:include href='Format-Badge.xslt'/>
+     <xsl:include href='Format-Collapse.xslt'/>
+     <xsl:include href='Format-Header.xslt'/>
 	
 	<xsl:param name='debug'>1</xsl:param>
 	
