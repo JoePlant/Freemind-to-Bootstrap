@@ -3,9 +3,19 @@
 	<Heading id='bus-case' name='Business Cases'>
 		<Section name='bus-case' marker='icon' icon='idea' >
 			<Collapse type='summary'>
-				<Header type='h1' select='node' link-target='true'/>
+				<Header type='h3' select='node' link-target='true'/>
+				<html><i class="icon-plus"></i></html>
 				<Badge color='green' text='Business Case'/>
 				<Badge color='blue' select='parent'/>
+				<Select marker='parent-text' text='Data Points'>
+					<html> Data Points: </html>
+					<Badge color='grey' select='count' />
+				</Select>
+				<Select marker='parent-text' text='Technology Questions'>
+					<html> Technology Questions: </html>
+					<Badge color='grey' select='count' />
+				</Select>
+				<html><br/></html>
 			</Collapse>
 			<Collapse type='collapsed'> 
 			<Table marker='current'>
@@ -54,8 +64,19 @@
 			</Collapse>
 		</Section>
 	</Heading>
-	<Heading id='people' name='People'>
-		<List name='people' marker='parent-text' text='People' recurse='true'/>
+	<Heading id='people' name='People' suppress='true'>
+		<Collapse type='summary'>
+			<Header id='people' type='h1' link-target='true'>
+				<html>People</html>
+			</Header>
+			<Select marker='parent-text' text='People' recurse='true'>
+				<html><i class="icon-plus"></i> Count: </html>
+				<Badge color='blue' select='count' />
+			</Select>
+		</Collapse>
+		<Collapse type='collapsed'>
+			<List name='people' marker='parent-text' text='People' recurse='true'/>
+		</Collapse>
 	</Heading>
 	<Heading id='questions' name='Questions'>
 		<Table name='questions' marker='parent-text' text='Data Points' recurse='true'>
@@ -78,24 +99,38 @@
 					<input type="text" placeholder="Type something…"/>
 				</html>
 			</Column>
-			<Column name='Business Case' select='parent.parent'/>
+			<Column name='Business Case'>
+				<Link select='parent.parent'/>
+			</Column>
 		</Table>
 	</Heading>
-
-	<Heading id='vendors' name='Vendors'>
-		<Table name='vendors' marker='parent-text' text='Vendors'>
-			<Column name='Company' select='.'/>
-			<Column name='Product' >
-				<Table name='vendors' marker='node'>
-					<Column name='Product' select='.'/>
-					<Column name='Check'>
-					<html>
-						<label class="checkbox"><input type="checkbox"/> Present? </label>
-					</html>
-					</Column>
-				</Table>
-			</Column>			
-		</Table>
+	<Heading id='vendors' name='Vendors' suppress='true'>
+		<Collapse type='summary'>
+			<Header id='vendors' type='h1' link-target='true'>
+				<html>Vendors</html>
+			</Header>
+			<Select marker='parent-text' text='Vendors'>
+				<html><i class="icon-plus"></i> Count: </html>
+				<Badge color='blue' select='count' />
+			</Select>
+		</Collapse>
+		
+		<Collapse type='collapsed'>
+			<Table name='vendors' marker='parent-text' text='Vendors'>
+				<Column name='#' select='position'/>
+				<Column name='Company' select='.'/>
+				<Column name='Product' >
+					<Table name='vendors' marker='node'>
+						<Column name='Product' select='.'/>
+						<Column name='Check'>
+						<html>
+							<label class="checkbox"><input type="checkbox"/> Present? </label>
+						</html>
+						</Column>
+					</Table>
+				</Column>			
+			</Table>
+		</Collapse>
 	</Heading>
 
 </Parameters>
