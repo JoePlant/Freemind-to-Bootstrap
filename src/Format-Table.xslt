@@ -121,6 +121,12 @@
 	<xsl:value-of select='$node/../../@TEXT'/>
   </xsl:template>
   
+  <xsl:template match='Table/Column[@select="position"]'>
+	<xsl:param name='node'/>
+	<xsl:variable name='text' select='@TEXT'/>
+	<xsl:value-of select='count($node/preceding-sibling::node) + 1'/>
+  </xsl:template>
+  
   <xsl:template match='Table/Column[not(@select)]'>
 	<xsl:param name='node'/>
 	<xsl:apply-templates >
