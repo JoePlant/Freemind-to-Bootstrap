@@ -14,12 +14,14 @@
 			<xsl:call-template name='render-badge'>
 				<xsl:with-param name='text' select='count($context)'/>
 				<xsl:with-param name='color' select='@color'/>
+				<xsl:with-param name='badge' select='.'/>
 			</xsl:call-template>
 		</xsl:when>	
 		<xsl:when test="@select='node'">
 			<xsl:call-template name='render-badge'>
 				<xsl:with-param name='text' select='$node/@TEXT'/>
 				<xsl:with-param name='color' select='@color'/>
+				<xsl:with-param name='badge' select='.'/>
 			</xsl:call-template>
 		</xsl:when>
 		<xsl:when test="@select='parent'">
@@ -27,25 +29,29 @@
 			<xsl:call-template name='render-badge'>
 				<xsl:with-param name='text' select='$node/../@TEXT'/>
 				<xsl:with-param name='color' select='@color'/>
-			</xsl:call-template>
+				<xsl:with-param name='badge' select='.'/>
+		</xsl:call-template>
 		</xsl:when>
 		<xsl:when test="@select='parent.parent'">
 			<xsl:variable name="text" select="@text"/>
 			<xsl:call-template name='render-badge'>
 				<xsl:with-param name='text' select='$node/../../@TEXT'/>
 				<xsl:with-param name='color' select='@color'/>
+				<xsl:with-param name='badge' select='.'/>
 			</xsl:call-template>
 		</xsl:when>
 		<xsl:when test="not(@select) and @text">
 			<xsl:call-template name='render-badge'>
 				<xsl:with-param name='text' select='@text'/>
 				<xsl:with-param name='color' select='@color'/>
+				<xsl:with-param name='badge' select='.'/>
 			</xsl:call-template>
 		</xsl:when>
 		<xsl:when test="not(@select) and text()">
 			<xsl:call-template name='render-badge'>
 				<xsl:with-param name='text' select='.'/>
 				<xsl:with-param name='color' select='@color'/>
+				<xsl:with-param name='badge' select='.'/>
 			</xsl:call-template>
 		</xsl:when>
 		<xsl:otherwise>
@@ -57,15 +63,21 @@
   <xsl:template name="render-badge">
     <xsl:param name="text">0</xsl:param>
     <xsl:param name="color">green</xsl:param>
+	<xsl:param name='badge'/>
     <xsl:variable name="badge-class">
       <xsl:choose>
         <xsl:when test="$color = 'grey'"></xsl:when>
         <xsl:when test="$color = 'gray'"></xsl:when>
-        <xsl:when test="$color = 'green'">badge-success</xsl:when>
-        <xsl:when test="$color = 'red'">badge-warning</xsl:when>
-        <xsl:when test="$color = 'blue'">badge-info</xsl:when>
-        <xsl:otherwise>badge-success</xsl:otherwise>
+        <xsl:when test="$color = 'green'">badge-success </xsl:when>
+        <xsl:when test="$color = 'red'">badge-warning </xsl:when>
+        <xsl:when test="$color = 'blue'">badge-info </xsl:when>
+        <xsl:otherwise>badge-success </xsl:otherwise>
       </xsl:choose>
+	  <xsl:choose>
+		<xsl:when test='$badge/@class'>
+			<xsl:value-of select='$badge/@class'/>
+		</xsl:when>
+	  </xsl:choose>
     </xsl:variable>
     <xsl:element name="span">
       <xsl:attribute name="class">
