@@ -19,6 +19,7 @@
      <xsl:include href='Format-Header.xslt'/>
      <xsl:include href='Format-Heading.xslt'/>
 	 <xsl:include href='Format-Select.xslt'/>
+	 <xsl:include href='Format-Value.xslt'/>
 	
 	<xsl:param name='debug'>1</xsl:param>
 	
