@@ -1,23 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Parameters>
 	<Heading id='bus-case' name='Business Cases'>
+		<html><hr/></html>
 		<Section name='bus-case' marker='icon' icon='idea' >
 			<Collapse type='summary'>
-				<Header type='h3' select='node' link-target='true'/>
+				<Header type='h3' select='current' link-target='true'/>
 				<html><i class="icon-plus"></i></html>
-				<Badge color='green' text='Business Case'/>
-				<Badge color='blue' select='parent'/>
+				<Label color='green' select='parent.parent' />
+				<Label color='blue' select='parent'/>
 				<Select marker='parent-text' text='Data Points'>
-					<html> Data Points: </html>
+					<html><span class='muted'> Data Points: </span></html>
 					<Badge color='grey' select='count' />
 				</Select>
 				<Select marker='parent-text' text='Technology Questions'>
-					<html> Technology Questions: </html>
+					<html><span class='muted'> Technology Questions: </span></html>
 					<Badge color='grey' select='count' />
 				</Select>
-				<html><br/></html>
 			</Collapse>
 			<Collapse type='collapsed'> 
+			<html><br/></html>
 			<Table marker='current'>
 				<html>
 					<tr><th>Summary</th><th>Business Process</th></tr>
@@ -33,6 +34,7 @@
 				<Row>
 					<Data>
 						<Table name='bc_data' marker='parent-text' text='Data Points'>
+							<Column name='#' select='position'/>
 							<Column name='Data Points' select='.'/>
 							<Column name='Answer' >
 								<html>
@@ -43,6 +45,7 @@
 					</Data>
 					<Data>
 						<Table name='bc_tech' marker='parent-text' text='Technology Questions'>
+							<Column name='#' select='position'/>
 							<Column name='Technology Question' select='.'/>
 							<Column name='Answer' >
 								<html>
@@ -51,6 +54,7 @@
 							</Column>
 						</Table>
 						<Table name='bc_kpi' marker='parent-text' text='Interpretation'>
+							<Column name='#' select='position'/>
 							<Column name='Interpretation' select='.'/>
 							<Column name='Answer' >
 								<html>
@@ -66,20 +70,26 @@
 	</Heading>
 	<Heading id='people' name='People' suppress='true'>
 		<Collapse type='summary'>
+			<html><hr/></html>
 			<Header id='people' type='h1' link-target='true'>
 				<html>People</html>
 			</Header>
-			<Select marker='parent-text' text='People' recurse='true'>
-				<html><i class="icon-plus"></i> Count: </html>
-				<Badge color='blue' select='count' />
+			<Select marker='parent-icon' icon='group' recurse='true'>
+				<html><i class="icon-plus"></i> <span class='muted'> Count: </span></html>
+				<Badge color='grey' select='count' />
 			</Select>
 		</Collapse>
 		<Collapse type='collapsed'>
-			<List name='people' marker='parent-text' text='People' recurse='true'/>
+			<List name='people' marker='parent-icon' icon='group' recurse='true'/>
 		</Collapse>
 	</Heading>
 	<Heading id='questions' name='Questions'>
+		<Select marker='parent-text' text='Data Points'>
+			<html><span class='muted'> Count: </span></html>
+			<Badge color='grey' select='count' />
+		</Select>
 		<Table name='questions' marker='parent-text' text='Data Points' recurse='true'>
+			<Column name='#' select='position'/>
 			<Column name='Question' select='.'/>
 			<Column name='Answer' >
 				<html>
@@ -92,7 +102,12 @@
 		</Table>
 	</Heading>
 	<Heading id='technology' name='Technology Questions'>
+		<Select marker='parent-text' text='Technology Questions'>
+			<html><span class='muted'> Count: </span></html>
+			<Badge color='grey' select='count' />
+		</Select>
 		<Table name='technology' marker='parent-text' text='Technology Questions'>
+			<Column name='#' select='position'/>
 			<Column name='Question' select='.'/>
 			<Column name='Answer' >
 				<html>
@@ -104,22 +119,62 @@
 			</Column>
 		</Table>
 	</Heading>
+	<Heading id='wimsa' name='WIMSA' suppress='true'>
+		<Collapse type='summary'>
+			<html><hr/></html>
+			<Header id='wimsa' type='h2' link-target='true'>
+				<html>WIMSA Grouping</html>
+			</Header>
+			<Select marker='parent-text' text='WIMSA Grouping' recurse='true'>
+				<html><i class="icon-plus"></i><span class='muted'> Count: </span></html>
+				<Badge color='grey' select='count' />
+			</Select>
+		</Collapse>
+		<Collapse type='collapsed'>
+			<List name='people' marker='parent-text' text='WIMSA Grouping' recurse='true'/>
+		</Collapse>
+	</Heading>
+
+	<Heading id='applications' name='Applications' suppress='true'>
+		<Collapse type='summary'>
+			<html><hr/></html>
+			<Header id='applications' type='h2' link-target='true'>
+				<html>Applications</html>
+			</Header>
+			<Select marker='parent-text' text='Applications' recurse='true'>
+				<html><i class="icon-plus"></i><span class='muted'> Count: </span></html>
+				<Badge color='grey' select='count' />
+			</Select>
+		</Collapse>
+		<Collapse type='collapsed'>
+			<List name='applications' marker='parent-text' text='Applications' recurse='true'/>
+		</Collapse>
+	</Heading>
 	<Heading id='vendors' name='Vendors' suppress='true'>
 		<Collapse type='summary'>
-			<Header id='vendors' type='h1' link-target='true'>
+			<html><hr/></html>
+			<Header id='vendors' type='h2' link-target='true'>
 				<html>Vendors</html>
 			</Header>
 			<Select marker='parent-text' text='Vendors'>
-				<html><i class="icon-plus"></i> Count: </html>
-				<Badge color='blue' select='count' />
+				<html><i class="icon-plus"></i><span class='muted'> Count: </span></html>
+				<Badge color='grey' select='count' />
 			</Select>
 		</Collapse>
 		
 		<Collapse type='collapsed'>
 			<Table name='vendors' marker='parent-text' text='Vendors'>
 				<Column name='#' select='position'/>
-				<Column name='Company' select='.'/>
+				<Column name='Company'>
+					<Collapse type='summary' id='vendor'>
+						<Value select='node'/>
+						<Select marker='node'>
+							<Badge color='grey' class='pull-right' select='count' />
+						</Select>
+					</Collapse>
+				</Column>
 				<Column name='Product' >
+					<Collapse type='collapsed' id='vendor'>
 					<Table name='vendors' marker='node'>
 						<Column name='Product' select='.'/>
 						<Column name='Check'>
@@ -128,6 +183,7 @@
 						</html>
 						</Column>
 					</Table>
+					</Collapse>
 				</Column>			
 			</Table>
 		</Collapse>
