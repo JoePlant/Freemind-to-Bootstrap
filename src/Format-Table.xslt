@@ -6,14 +6,12 @@
 <xsl:template match='Table[Column]' >
 	<xsl:param name='context'/>
 	<table class="table table-condensed table-hover table-bordered ">
-		<thead>
+		<tbody>
 			<tr>
 				<xsl:for-each select='Column'>
 					<th><xsl:value-of select='@name'/></th>
 				</xsl:for-each>
 			</tr>
-		</thead>
-		<tbody>
 			
 		<xsl:choose>	
 			<xsl:when test="@marker='icon'">
