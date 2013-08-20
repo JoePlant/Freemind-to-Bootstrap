@@ -9,8 +9,6 @@
 		<xsl:with-param name='context' select='$context'/>
 	</xsl:call-template>
 	<xsl:choose>
-		<xsl:when test='0 = 1'></xsl:when>
-		<xsl:when test='not($context)'>No context</xsl:when>
 		<xsl:when test="@marker='parent-text' and not(@recurse)">
 			<xsl:variable name="text" select="@text"/>
 			<xsl:variable name='nodes' select="$context/descendant-or-self::node[@TEXT=$text]/node"/>
@@ -29,6 +27,34 @@
 				<xsl:with-param name='node' select='$nodes'/>
 			</xsl:apply-templates>
 		</xsl:when>
+		<xsl:when test="@marker='icon'">
+			<xsl:variable name="icon" select="@icon"/>
+			<xsl:variable name='nodes' select="$context/descendant-or-self::node[icon/@BUILTIN=$icon]"/>
+			<xsl:apply-templates >
+				<xsl:with-param name='select' select ='.'/>
+				<xsl:with-param name='context' select='$nodes'/>
+				<xsl:with-param name='node' select='$nodes'/>
+			</xsl:apply-templates>
+		</xsl:when>
+		<xsl:when test="@marker='parent-icon'">
+			<xsl:variable name="icon" select="@icon"/>
+			<xsl:variable name='nodes' select="$context/descendant-or-self::node[icon/@BUILTIN=$icon]/node"/>
+			<xsl:apply-templates >
+				<xsl:with-param name='select' select ='.'/>
+				<xsl:with-param name='context' select='$nodes'/>
+				<xsl:with-param name='node' select='$nodes'/>
+			</xsl:apply-templates>
+		</xsl:when>
+		<xsl:when test="@marker='node'">
+			<xsl:variable name='nodes' select="$context/node"/>
+			<xsl:apply-templates >
+				<xsl:with-param name='select' select ='.'/>
+				<xsl:with-param name='context' select='$nodes'/>
+				<xsl:with-param name='node' select='$nodes'/>
+			</xsl:apply-templates>
+		</xsl:when>
+
+		
 	<!--
 		<xsl:when test="@marker='icon'">
 			<xsl:variable name="icon" select="@icon"/>
