@@ -6,11 +6,11 @@
 	<xsl:param name='node'/>
 	<xsl:param name='context'/>
 	<xsl:call-template name='node-as-comment'/>
-	<xsl:variable name='parent' select='..'/>
+	<xsl:variable name='collapse' select='.'/>
 	<xsl:variable name='unique-id'>
 		<xsl:call-template name='collapse-calculate-unique-id'>
 			<xsl:with-param name='node' select='$node'/>
-			<xsl:with-param name='parent' select='$parent'/>
+			<xsl:with-param name='collapse' select='$collapse'/>
 		</xsl:call-template>
 	</xsl:variable>
 	<div data-toggle='collapse' data-target="{concat('#', $unique-id)}">
@@ -25,11 +25,11 @@
 	<xsl:param name='node'/>
 	<xsl:param name='context'/>
   	<xsl:call-template name='node-as-comment'/>
-	<xsl:variable name='parent' select='..'/>
+	<xsl:variable name='collapse' select='.'/>
 	<xsl:variable name='unique-id'>
 		<xsl:call-template name='collapse-calculate-unique-id'>
 			<xsl:with-param name='node' select='$node'/>
-			<xsl:with-param name='parent' select='$parent'/>
+			<xsl:with-param name='collapse' select='$collapse'/>
 		</xsl:call-template>
 	</xsl:variable>
 	<div id="{$unique-id}" class='collapse'>
@@ -42,22 +42,25 @@
   
   <xsl:template name='collapse-calculate-unique-id'>
 	<xsl:param name='node'/>
-	<xsl:param name='parent' />
+	<xsl:param name='collapse' />
 	<xsl:choose>
 		<xsl:when test='count($node) > 0'>
 			<xsl:value-of select='generate-id($node)' />
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:text>no-node-available</xsl:text>
+			<xsl:text>node</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
 	<xsl:text>-</xsl:text>
 	<xsl:choose>
-		<xsl:when test='count($parent) > 0'>
-			<xsl:value-of select='generate-id($parent)' />
+		<xsl:when test='$collapse/@id'>
+			<xsl:value-of select='$collapse/@id' />
+		</xsl:when>
+		<xsl:when test='count($collapse) > 0'>
+			<xsl:value-of select='generate-id($collapse/..)' />
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:text>no-parent-available</xsl:text>
+			<xsl:text>collapse</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
   </xsl:template>
