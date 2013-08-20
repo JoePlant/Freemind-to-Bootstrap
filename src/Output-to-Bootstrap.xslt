@@ -14,6 +14,7 @@
 	 <xsl:include href='Format-Section.xslt'/>
 	 <xsl:include href='Format-Paragraph.xslt'/>
      <xsl:include href='Format-Badge.xslt'/>
+     <xsl:include href='Format-Label.xslt'/>
      <xsl:include href='Format-Collapse.xslt'/>
      <xsl:include href='Format-Header.xslt'/>
      <xsl:include href='Format-Heading.xslt'/>
@@ -101,40 +102,7 @@
   </xsl:template>
 
   
-  
-    <xsl:template name="badge">
-    <xsl:param name="text">0</xsl:param>
-    <xsl:param name="color">green</xsl:param>
-    <xsl:variable name="badge-class">
-      <xsl:choose>
-        <xsl:when test="$color = 'grey'"></xsl:when>
-        <xsl:when test="$color = 'gray'"></xsl:when>
-        <xsl:when test="$color = 'green'">badge-success</xsl:when>
-        <xsl:when test="$color = 'red'">badge-warning</xsl:when>
-        <xsl:when test="$color = 'blue'">badge-info</xsl:when>
-        <xsl:otherwise>badge-success</xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:element name="span">
-      <xsl:attribute name="class">
-        <xsl:text>badge </xsl:text>
-        <xsl:value-of select="$badge-class"/>
-      </xsl:attribute>
-      <xsl:value-of select="$text"/>
-    </xsl:element>
-  </xsl:template>
-  
-  
-   <xsl:template name="create-sections">
-    <xsl:param name="nodes"/>
-	<xsl:for-each select='$nodes'>
-	<a name='{@ID}'/>
-	<h3><xsl:value-of select='@TEXT'/></h3>
-	<hr/>
-	</xsl:for-each>
-   </xsl:template>
-  
-   <xsl:template name="build-top-menu">
+  <xsl:template name="build-top-menu">
     <xsl:param name="nodes"/>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
