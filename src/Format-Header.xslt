@@ -37,6 +37,13 @@
 				<xsl:with-param name='header' select ='.'/>
 			</xsl:apply-templates>
 		</xsl:when>
+		<xsl:when test="@select='current'">
+			<xsl:variable name="text" select="@text"/>
+			<xsl:variable name='nodes' select="$context"/>
+			<xsl:apply-templates select="$nodes" mode='header'>
+				<xsl:with-param name='header' select ='.'/>
+			</xsl:apply-templates>
+		</xsl:when>
 		<xsl:when test="not(@select) and not(@marker)">
 			<xsl:variable name="text" select="@text"/>
 			<xsl:variable name='nodes' select="$context"/>
@@ -78,7 +85,7 @@
 	<xsl:if test="$header/@link-target='true'">
 		<xsl:variable name='link-name'>
 			<xsl:choose>
-				<xsl:when test='$node/@ID'><xsl:value-of select='$node/@ID'/></xsl:when>
+				<xsl:when test='$header/@select and $node/@ID'><xsl:value-of select='$node/@ID'/></xsl:when>
 				<xsl:when test='$header/@id'><xsl:value-of select='$header/@id'/></xsl:when>
 				<xsl:when test='$header/../@id'><xsl:value-of select='$header/../@id'/></xsl:when>
 			</xsl:choose>
