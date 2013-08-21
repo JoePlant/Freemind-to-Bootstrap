@@ -9,7 +9,7 @@ The parameters.xml file contains the information attributes to extract and forma
 Elements
 ===
 
-* Parameters
+* [Parameters](doc/Parameters.md)
 * Heading
 * Section
 * Collapse
