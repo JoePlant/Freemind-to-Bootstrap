@@ -53,29 +53,22 @@
 				<xsl:with-param name='node' select='$nodes'/>
 			</xsl:apply-templates>
 		</xsl:when>
-
-		
-	<!--
-		<xsl:when test="@marker='icon'">
-			<xsl:variable name="icon" select="@icon"/>
-			<xsl:variable name='nodes' select="$context/descendant-or-self::node[icon/@BUILTIN=$icon]"/>
+		<xsl:when test="@marker='current'">
+			<xsl:variable name='nodes' select="$context"/>
 			<xsl:apply-templates >
 				<xsl:with-param name='select' select ='.'/>
 				<xsl:with-param name='context' select='$nodes'/>
 				<xsl:with-param name='node' select='$nodes'/>
 			</xsl:apply-templates>
 		</xsl:when>
-		
-		<xsl:when test="@marker='text'">
-			<xsl:variable name="text" select="@text"/>
-			<xsl:variable name='nodes' select="$context/descendant-or-self::node[@TEXT=$text]"/>
+		<xsl:when test="@marker='parent'">
+			<xsl:variable name='nodes' select="$context/.."/>
 			<xsl:apply-templates >
 				<xsl:with-param name='select' select ='.'/>
 				<xsl:with-param name='context' select='$nodes'/>
 				<xsl:with-param name='node' select='$nodes'/>
 			</xsl:apply-templates>
 		</xsl:when>
-		-->
 		<xsl:otherwise>
 			<div>!!! No Marker found</div>
 		</xsl:otherwise>
