@@ -22,4 +22,6 @@ Elements
 * [Select](doc/Select.md)
 * [Table](doc/Table.md)
 * [Value](doc/Value.md)
+* [Input](doc/Input.md)
+* [TextArea](doc/TextArea.md)
 

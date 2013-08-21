@@ -20,8 +20,10 @@
      <xsl:include href='Format-Heading.xslt'/>
 	 <xsl:include href='Format-Select.xslt'/>
 	 <xsl:include href='Format-Value.xslt'/>
-	
-	<xsl:param name='debug'>1</xsl:param>
+	 <xsl:include href='Format-Input.xslt'/>
+	 <xsl:include href='Format-TextArea.xslt'/>
+	 
+	 <xsl:param name='debug'>1</xsl:param>
 	
 	<xsl:param name='parameters'>parameters.xml</xsl:param>
 	<xsl:variable name='doc-parameters' select='document($parameters)'/>
@@ -62,7 +64,7 @@
           }
         </style>
       </head>
-      <body data-spy="scroll" data-target=".side-nav">
+      <body data-spy="scroll" data-target=".sidebar-nav">
 		<xsl:variable name='headings' select='$doc-parameters/Parameters/Heading'/>
 		
 		<xsl:call-template name="build-top-menu">
@@ -90,6 +92,9 @@
          </div>
         <script src="jquery/jquery.js"/>
         <script src="bootstrap/js/bootstrap.js"/>
+		<script src="JSON-js/json2.js"/>
+		<script src="jstorage/jstorage.js"/>
+		<script src="custom/persist.js"/>
 		
       </body>
     </html>
@@ -144,7 +149,7 @@
   
  <xsl:template name="build-side-menu">
     <xsl:param name="nodes"/>
-    <ul class="nav nav-list affix side-nav">
+    <ul class="nav nav-list affix sidebar-nav">
 		<li class="brand" > <a href="#"> <i class="icon-home"/> <xsl:value-of select='/map/node/@TEXT'/></a></li>
 		<xsl:for-each select='$nodes'>
 			<xsl:choose>
