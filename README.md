@@ -10,16 +10,16 @@ Elements
 ===
 
 * [Parameters](doc/Parameters.md)
-* Heading
-* Section
-* Collapse
-* Header
-* Label
-* Badge
-* Link
-* List
-* Paragraph
-* Select
-* Table
-* Value
+* [Heading](doc/Heading.md)
+* [Section](doc/Section.md)
+* [Collapse](doc/Collapse.md)
+* [Header](doc/Header.md)
+* [Label](doc/Label.md)
+* [Badge](doc/Badge.md)
+* [Link](doc/Link.md)
+* [List](doc/List.md)
+* [Paragraph](doc/Paragraph.md)
+* [Select](doc/Select.md)
+* [Table](doc/Table.md)
+* [Value](doc/Value.md)
 
