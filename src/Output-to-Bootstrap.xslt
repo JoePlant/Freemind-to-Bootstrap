@@ -102,8 +102,10 @@
   
   <xsl:template match='html'>
 	<xsl:param name='node'/>		
+	<xsl:param name='context'/>
 	<xsl:apply-templates>
 		<xsl:with-param name='node' select='$node'/>
+		<xsl:with-param name='context' select='$context'/>
 	</xsl:apply-templates>
   </xsl:template>
 
@@ -271,9 +273,22 @@
 </div>
 	</xsl:template>
 	
-  <xsl:template match="@* | node()">
+  <xsl:template match='node()'>
+	<xsl:param name='node'/>
+	<xsl:param name='context'/>
     <xsl:copy>
-      <xsl:apply-templates select="@* | node()"/>
+      <xsl:apply-templates select="@* "/>
+	  <xsl:apply-templates select="node()">
+		<xsl:with-param name='node' select='$node'/>
+		<xsl:with-param name='context' select='$context'/>
+	  </xsl:apply-templates>
+    </xsl:copy>
+	
+  </xsl:template>
+	
+  <xsl:template match="@* ">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
     </xsl:copy>
   </xsl:template>
   
