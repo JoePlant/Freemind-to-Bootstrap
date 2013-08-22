@@ -26,6 +26,10 @@
 				<Row>
 					<Data>
 						<Paragraph name='summary' marker='parent-text' text='Summary'/>
+						<html><span class='header'>Comments</span><br/></html>
+						<Select marker='current' >
+							<TextArea placeholder='{Please enter comments here...}' rows='6' cols='50' persist='true' key='current'/>
+						</Select>
 					</Data>
 					<Data>
 						<List name='business-process' marker='parent-text' text='Business Process' recurse='true'/>
@@ -36,10 +40,13 @@
 						<Table name='bc_data' marker='parent-text' text='Data Points'>
 							<Column name='#' select='position'/>
 							<Column name='Data Points' select='.'/>
-							<Column name='Answer' >
+							<Column name='Answer'>
+								<Input type='text' placeholder='{Data Point}' persist='true' key='current'/>
+								<!--
 								<html>
 									<input type="text" placeholder="Type something…"/>
 								</html>
+								-->
 							</Column>
 						</Table>
 					</Data>
@@ -49,7 +56,7 @@
 							<Column name='Technology Question' select='.'/>
 							<Column name='Answer' >
 								<html>
-									<input type="text" placeholder="Type something…"/>
+									<Input type='text' placeholder='{Technology Question}' persist='true' key='current'/>
 								</html>
 							</Column>
 						</Table>
@@ -58,7 +65,7 @@
 							<Column name='Interpretation' select='.'/>
 							<Column name='Answer' >
 								<html>
-									<input type="text" placeholder="Type something…"/>
+									<Input type='text' placeholder='{Interpretation}' persist='true' key='current'/>
 								</html>
 							</Column>
 						</Table>
@@ -92,9 +99,7 @@
 			<Column name='#' select='position'/>
 			<Column name='Question' select='.'/>
 			<Column name='Answer' >
-				<html>
-					<input type="text" placeholder="Type something…"/>
-				</html>
+				<Input type='text' placeholder='{Data Point}' persist='true' key='current'/>
 			</Column>
 			<Column name='Business Case'>
 				<Link select='parent.parent'/>
@@ -110,15 +115,31 @@
 			<Column name='#' select='position'/>
 			<Column name='Question' select='.'/>
 			<Column name='Answer' >
-				<html>
-					<input type="text" placeholder="Type something…"/>
-				</html>
+				<Input type='text' placeholder='{Technology Question}' persist='true' key='current'/>
 			</Column>
 			<Column name='Business Case'>
 				<Link select='parent.parent'/>
 			</Column>
 		</Table>
 	</Heading>
+	<Heading id='interpretation' name='Interpretation'>
+		<Select marker='parent-text' text='Interpretation'>
+			<html><span class='muted'> Count: </span></html>
+			<Badge color='grey' select='count' />
+		</Select>
+		<Table name='interpretation' marker='parent-text' text='Interpretation'>
+			<Column name='#' select='position'/>
+			<Column name='Question' select='.'/>
+			<Column name='Answer' >
+				<Input type='text' placeholder='{Interpretation}' persist='true' key='current'/>
+			</Column>
+			<Column name='Business Case'>
+				<Link select='parent.parent'/>
+			</Column>
+		</Table>
+	</Heading>
+
+	
 	<Heading id='wimsa' name='WIMSA' suppress='true'>
 		<Collapse type='summary'>
 			<html><hr/></html>
@@ -179,7 +200,7 @@
 						<Column name='Product' select='.'/>
 						<Column name='Check'>
 						<html>
-							<label class="checkbox"><input type="checkbox"/> Present? </label>
+							<label class="checkbox"><Input type="checkbox" persist='true' value='Present' key='current'/> Present? </label>
 						</html>
 						</Column>
 					</Table>
