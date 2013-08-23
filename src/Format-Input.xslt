@@ -26,12 +26,24 @@
   <xsl:template match='node' mode='input'>
 	<xsl:param name='input'/>
 	<xsl:variable name='node' select='.'/>
-	<input>
-		<xsl:apply-templates select='$input/@*' mode='input'>
-			<xsl:with-param name='input' select='$input'/>
-			<xsl:with-param name='node' select='$node'/>
-		</xsl:apply-templates>
-	</input>
+	<xsl:choose> 
+		<xsl:when test='$allow-input > 0'>
+			<input>
+				<xsl:apply-templates select='$input/@*' mode='input'>
+					<xsl:with-param name='input' select='$input'/>
+					<xsl:with-param name='node' select='$node'/>
+				</xsl:apply-templates>
+			</input>
+		</xsl:when>	
+		<xsl:when test="$input/@type='checkbox'">
+			<i class='icon-edit'/> 
+		</xsl:when>
+		<xsl:otherwise>
+			<div class='muted'> <i class='icon-pencil' /> <xsl:value-of select='$input/@placeholder'/>
+				<br/>
+			</div>
+		</xsl:otherwise>
+	</xsl:choose>
   </xsl:template>
   
   <xsl:template match='@*' mode='input'>

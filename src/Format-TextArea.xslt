@@ -26,12 +26,23 @@
   <xsl:template match='node' mode='textarea'>
 	<xsl:param name='textarea'/>
 	<xsl:variable name='node' select='.'/>
-	<textarea>
-		<xsl:apply-templates select='$textarea/@*' mode='textarea'>
-			<xsl:with-param name='textarea' select='$textarea'/>
-			<xsl:with-param name='node' select='$node'/>
-		</xsl:apply-templates>
-	</textarea>
+	<xsl:choose> 
+		<xsl:when test='$allow-input > 0'>
+			<textarea>
+				<xsl:apply-templates select='$textarea/@*' mode='textarea'>
+					<xsl:with-param name='textarea' select='$textarea'/>
+					<xsl:with-param name='node' select='$node'/>
+				</xsl:apply-templates>
+			</textarea>
+		</xsl:when>
+		<xsl:otherwise>
+			<div class='muted'><i class='icon-pencil' /> <xsl:value-of select='$textarea/@placeholder'/>
+				<br/>
+				<br/>
+				<br/>
+			</div>
+		</xsl:otherwise>
+	</xsl:choose>
   </xsl:template>
   
   <xsl:template match='@*' mode='textarea'>
