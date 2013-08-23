@@ -24,18 +24,15 @@
 	 <xsl:include href='Format-TextArea.xslt'/>
 	 
 	 <xsl:param name='debug'>1</xsl:param>
+	 
+	 <xsl:param name='show-menu'>1</xsl:param>
+	 <xsl:param name='allow-input'>1</xsl:param>
+	 <xsl:param name='screen-width'>10</xsl:param>
+<!--	 <xsl:param name='screen-width'>4</xsl:param> -->
 	
 	<xsl:param name='parameters'>parameters.xml</xsl:param>
 	<xsl:variable name='doc-parameters' select='document($parameters)'/>
 	
-	<!--<icon BUILTIN="idea"/> -->
-	
-	<xsl:key name='nodes-by-icon' match='node' use='icon/@BUILTIN'/>
-	<xsl:key name='nodes-by-parent-text' match='node' use='../@TEXT'/>
-	<xsl:key name='nodes-by-text' match='node' use='@TEXT'/>
-	<xsl:key name='nodes-by-id' match='node' use='@ID'/>
-	
-	<xsl:variable name='dot'>.</xsl:variable>
 	<xsl:variable name='root' select='/'/>
 	
 	<xsl:template match="/">
@@ -74,13 +71,14 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span2">
-				   <xsl:call-template name="build-side-menu">
-						<xsl:with-param name="nodes" select='$headings'/>
-					</xsl:call-template>	
+					<xsl:if test='$show-menu > 0'>
+						<xsl:call-template name="build-side-menu">
+							<xsl:with-param name="nodes" select='$headings'/>
+						</xsl:call-template>	
+					</xsl:if>
 				</div>
-				<div class='span10'>
+				<div class='{concat("span", $screen-width)}'>
 					<xsl:call-template name='output-parameters-error'/>					
-
 					<hr/>
 						<xsl:apply-templates select='$headings'>
 							<xsl:with-param name='context' select='$root'/>
@@ -95,7 +93,6 @@
 		<script src="JSON-js/json2.js"/>
 		<script src="jstorage/jstorage.js"/>
 		<script src="custom/persist.js"/>
-		
       </body>
     </html>
   </xsl:template> 
@@ -122,7 +119,25 @@
           </button>
           <a class="brand" href="#"> <i class="icon-home icon-white"/> <xsl:value-of select='/map/node/@TEXT'/></a>
           <div class="nav-collapse collapse">
-			<p class='navbar-text pull-right'> <a href="#about" data-toggle="modal" title='About'> <i class="icon-info-sign icon-white"/></a></p>
+
+			<!-- <p class='navbar-text pull-right'><a href="#about" data-toggle="modal" title='About'> <i class="icon-info-sign"/></a></p>  -->
+			<div class="btn-group pull-right">
+			  <button class="btn btn-inverse"><i class="icon-tasks icon-white"/> Menu</button>
+			  <button class="btn dropdown-toggle btn-inverse" data-toggle="dropdown">
+				<span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu">
+				<li><a tabindex="-1" href="#data" data-toggle="modal" title='About' id='menu-data-save'><i class="icon-hdd" /> Save data</a></li>
+				<li><a tabindex="-1" href="#"><i class="icon-upload" /> Load form</a></li>
+				<li class="divider"/>
+				<li><a tabindex="-1" href="#" id='menu-flush-data'><i class="icon-info-sign" /> Clear all</a></li>
+				<li class="divider"/>
+				<li><a tabindex="-1" href="#" id='menu-hide-all'><i class="icon-chevron-up" /> Collapse all</a></li>
+				<li><a tabindex="-1" href="#" id='menu-show-all'><i class="icon-chevron-down" /> Show all</a></li>
+				<li class="divider"/>
+				<li><a tabindex="-1" href="#about" data-toggle="modal" title='About'><i class="icon-info-sign"/> About</a></li>
+			  </ul>
+			</div>
             <ul class="nav">
 				<xsl:for-each select='$nodes'>
 				<xsl:choose>
@@ -139,7 +154,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				</xsl:for-each>  
-				
+			  
             </ul>
           </div>
           <!--/.nav-collapse -->
@@ -151,7 +166,8 @@
   
  <xsl:template name="build-side-menu">
     <xsl:param name="nodes"/>
-    <ul class="nav nav-list affix sidebar-nav">
+<!--    <ul class="nav nav-list affix sidebar-nav"> -->
+    <ul class="nav nav-tabs nav-stacked affix sidebar-nav">
 		<li class="brand" > <a href="#"> <i class="icon-home"/> <xsl:value-of select='/map/node/@TEXT'/></a></li>
 		<xsl:for-each select='$nodes'>
 			<xsl:choose>
@@ -271,6 +287,23 @@
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
+</xsl:template>
+
+	<xsl:template name='output-data-modal'>
+<div id="data" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="data-model-header" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="data-model-header">Data</h3>
+  </div>
+  <div class="modal-body">
+    <pre id="data-modal-data">
+	</pre>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
 	</xsl:template>
 	
   <xsl:template match='node()'>
