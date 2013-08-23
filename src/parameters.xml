@@ -1,47 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Parameters>
-	<Heading id='bus-case' name='Business Cases'>
-		<html><hr/></html>
-		<Section name='bus-case' marker='icon' icon='idea' >
-			<Collapse type='summary'>
-				<Header type='h3' select='current' link-target='true'/>
+	<Heading id="bus-case" name="Business Cases" >
+		<Menu marker='text' text='Business Plans'>
+			<SubMenu select='current'>
+				<DropDown marker='icon' icon='idea'/>
+			</SubMenu>
+		</Menu>
+		<html><hr></hr></html>
+		<Section name="bus-case" marker="icon" icon="idea">
+			<Collapse type="summary">
+				<Header type="h3" select="current" link-target="true"></Header>
 				<html><i class="icon-plus"></i></html>
-				<Label color='green' select='parent.parent' />
-				<Label color='blue' select='parent'/>
-				<Select marker='parent-text' text='Data Points'>
-					<html><span class='muted'> Data Points: </span></html>
-					<Badge color='grey' select='count' />
+				<Label color="green" select="parent.parent"></Label>
+				<Label color="blue" select="parent"></Label>
+				<Select marker="parent-text" text="Data Points">
+					<html><span class="muted"> Data Points: </span></html>
+					<Badge color="grey" select="count"></Badge>
 				</Select>
-				<Select marker='parent-text' text='Technology Questions'>
-					<html><span class='muted'> Technology Questions: </span></html>
-					<Badge color='grey' select='count' />
+				<Select marker="parent-text" text="Technology Questions">
+					<html><span class="muted"> Technology Questions: </span></html>
+					<Badge color="grey" select="count"></Badge>
 				</Select>
 			</Collapse>
-			<Collapse type='collapsed'> 
-			<html><br/></html>
-			<Table marker='current'>
+			<Collapse type="collapsed"> 
+			<html><br></br></html>
+			<Table marker="current">
 				<html>
-					<tr><th>Summary</th><th>Business Process</th></tr>
+					<tr><th>Summary</th></tr>
 				</html>
 				<Row>
 					<Data>
-						<Paragraph name='summary' marker='parent-text' text='Summary'/>
-						<html><span class='header'>Comments</span><br/></html>
-						<Select marker='current' >
-							<TextArea placeholder='{Please enter comments here...}' rows='6' cols='50' persist='true' key='current'/>
+						<Paragraph name="summary" marker="parent-text" text="Summary"></Paragraph>
+						<html><span class="header">Comments</span><br></br></html>
+						<Select marker="current">
+							<TextArea placeholder="{Please enter comments here...}" rows="6" cols="50" persist="true" key="current"></TextArea>
 						</Select>
 					</Data>
+				</Row>
+				<html>
+					<tr><th>Business Process</th></tr>
+				</html>
+				<Row>
 					<Data>
-						<List name='business-process' marker='parent-text' text='Business Process' recurse='true'/>
+						<List name="business-process" marker="parent-text" text="Business Process" recurse="true"></List>
 					</Data>
 				</Row>
 				<Row>
 					<Data>
-						<Table name='bc_data' marker='parent-text' text='Data Points'>
-							<Column name='#' select='position'/>
-							<Column name='Data Points' select='.'/>
-							<Column name='Answer'>
-								<Input type='text' placeholder='{Data Point}' persist='true' key='current'/>
+						<Table name="bc_data" marker="parent-text" text="Data Points">
+							<Column name="#" select="position"></Column>
+							<Column name="Data Points" select="."></Column>
+							<Column name="Answer">
+								<Input type="text" placeholder="{Data Point}" persist="true" key="current"></Input>
 								<!--
 								<html>
 									<input type="text" placeholder="Type something…"/>
@@ -50,22 +60,28 @@
 							</Column>
 						</Table>
 					</Data>
+				</Row>
+				<Row>
 					<Data>
-						<Table name='bc_tech' marker='parent-text' text='Technology Questions'>
-							<Column name='#' select='position'/>
-							<Column name='Technology Question' select='.'/>
-							<Column name='Answer' >
+						<Table name="bc_tech" marker="parent-text" text="Technology Questions">
+							<Column name="#" select="position"></Column>
+							<Column name="Technology Question" select="."></Column>
+							<Column name="Answer">
 								<html>
-									<Input type='text' placeholder='{Technology Question}' persist='true' key='current'/>
+									<Input type="text" placeholder="{Technology Question}" persist="true" key="current"></Input>
 								</html>
 							</Column>
 						</Table>
-						<Table name='bc_kpi' marker='parent-text' text='Interpretation'>
-							<Column name='#' select='position'/>
-							<Column name='Interpretation' select='.'/>
-							<Column name='Answer' >
+					</Data>
+				</Row>
+				<Row>
+					<Data>
+						<Table name="bc_kpi" marker="parent-text" text="Interpretation">
+							<Column name="#" select="position"></Column>
+							<Column name="Interpretation" select="."></Column>
+							<Column name="Answer">
 								<html>
-									<Input type='text' placeholder='{Interpretation}' persist='true' key='current'/>
+									<Input type="text" placeholder="{Interpretation}" persist="true" key="current"></Input>
 								</html>
 							</Column>
 						</Table>
@@ -75,132 +91,158 @@
 			</Collapse>
 		</Section>
 	</Heading>
-	<Heading id='people' name='People' suppress='true'>
-		<Collapse type='summary'>
-			<html><hr/></html>
-			<Header id='people' type='h1' link-target='true'>
+	<Heading id="people" name="People" suppress="true">
+		<Collapse type="summary">
+			<html><hr></hr></html>
+			<Header id="people" type="h1" link-target="true">
 				<html>People</html>
 			</Header>
-			<Select marker='parent-icon' icon='group' recurse='true'>
-				<html><i class="icon-plus"></i> <span class='muted'> Count: </span></html>
-				<Badge color='grey' select='count' />
+			<Select marker="parent-icon" icon="group" recurse="true">
+				<html><i class="icon-plus"></i> <span class="muted"> Count: </span></html>
+				<Badge color="grey" select="count"></Badge>
 			</Select>
 		</Collapse>
-		<Collapse type='collapsed'>
-			<List name='people' marker='parent-icon' icon='group' recurse='true'/>
+		<Collapse type="collapsed">
+			<List name="people" marker="parent-icon" icon="group" recurse="true"></List>
 		</Collapse>
 	</Heading>
-	<Heading id='questions' name='Questions'>
-		<Select marker='parent-text' text='Data Points'>
-			<html><span class='muted'> Count: </span></html>
-			<Badge color='grey' select='count' />
+	<Heading id="questions" name="Questions">
+		<Select marker="parent-text" text="Data Points">
+			<html><span class="muted"> Count: </span></html>
+			<Badge color="grey" select="count"></Badge>
 		</Select>
-		<Table name='questions' marker='parent-text' text='Data Points' recurse='true'>
-			<Column name='#' select='position'/>
-			<Column name='Question' select='.'/>
-			<Column name='Answer' >
-				<Input type='text' placeholder='{Data Point}' persist='true' key='current'/>
+		<Table name="questions" marker="parent-text" text="Data Points" recurse="true">
+			<Column name="#" select="position"></Column>
+			<Column name="Question" select="."></Column>
+			<Column name="Answer">
+				<Input type="text" placeholder="{Data Point}" persist="true" key="current"></Input>
 			</Column>
-			<Column name='Business Case'>
-				<Link select='parent.parent'/>
+			<Column name="Business Case">
+				<Link select="parent.parent"></Link>
 			</Column>
 		</Table>
 	</Heading>
-	<Heading id='technology' name='Technology Questions'>
-		<Select marker='parent-text' text='Technology Questions'>
-			<html><span class='muted'> Count: </span></html>
-			<Badge color='grey' select='count' />
+	<Heading id="technology" name="Technology Questions">
+		<Select marker="parent-text" text="Technology Questions">
+			<html><span class="muted"> Count: </span></html>
+			<Badge color="grey" select="count"></Badge>
 		</Select>
-		<Table name='technology' marker='parent-text' text='Technology Questions'>
-			<Column name='#' select='position'/>
-			<Column name='Question' select='.'/>
-			<Column name='Answer' >
-				<Input type='text' placeholder='{Technology Question}' persist='true' key='current'/>
+		<Table name="technology" marker="parent-text" text="Technology Questions">
+			<Column name="#" select="position"></Column>
+			<Column name="Question" select="."></Column>
+			<Column name="Answer">
+				<Input type="text" placeholder="{Technology Question}" persist="true" key="current"></Input>
 			</Column>
-			<Column name='Business Case'>
-				<Link select='parent.parent'/>
+			<Column name="Business Case">
+				<Link select="parent.parent"></Link>
 			</Column>
 		</Table>
 	</Heading>
-	<Heading id='interpretation' name='Interpretation'>
-		<Select marker='parent-text' text='Interpretation'>
-			<html><span class='muted'> Count: </span></html>
-			<Badge color='grey' select='count' />
+	<Heading id="interpretation" name="Interpretation">
+		<Select marker="parent-text" text="Interpretation">
+			<html><span class="muted"> Count: </span></html>
+			<Badge color="grey" select="count"></Badge>
 		</Select>
-		<Table name='interpretation' marker='parent-text' text='Interpretation'>
-			<Column name='#' select='position'/>
-			<Column name='Question' select='.'/>
-			<Column name='Answer' >
-				<Input type='text' placeholder='{Interpretation}' persist='true' key='current'/>
+		<Table name="interpretation" marker="parent-text" text="Interpretation">
+			<Column name="#" select="position"></Column>
+			<Column name="Question" select="."></Column>
+			<Column name="Answer">
+				<Input type="text" placeholder="{Interpretation}" persist="true" key="current"></Input>
 			</Column>
-			<Column name='Business Case'>
-				<Link select='parent.parent'/>
+			<Column name="Business Case">
+				<Link select="parent.parent"></Link>
 			</Column>
 		</Table>
 	</Heading>
 
+	<Heading id="measures" name="Operational Measures">
+		<html><hr></hr></html>
+		
+		<Section name="measures" marker="icon" text="info">
+				<Header type="h3" select="current" link-target="true"/>
+				<html><i class="icon-plus"></i></html>
+				<Label color="green" select="parent.parent"></Label>
+				<Label color="blue" select="parent"></Label>
+				<Select marker="node" >
+					<html><span class="muted"> Measures: </span></html>
+					<Badge color="grey" select="count"></Badge>
+				</Select>
+			<Table name="measures" marker="node" recurse='true'>
+				<Column name="#" select="position"></Column>
+				<Column name="Measure" select="."></Column>
+				<Column name="Answer">
+					<Input type="text" placeholder="{Operational Measure}" persist="true" key="current"></Input>
+				</Column>
+				<Column name="Area">
+					<Link select="parent.parent"/><html>.</html>
+					<Link select='parent'/>
+				</Column>
+			</Table>
+			
+		</Section>		
+	</Heading>
 	
-	<Heading id='wimsa' name='WIMSA' suppress='true'>
-		<Collapse type='summary'>
-			<html><hr/></html>
-			<Header id='wimsa' type='h2' link-target='true'>
+	<Heading id="wimsa" name="WIMSA" suppress="true">
+		<Collapse type="summary">
+			<html><hr></hr></html>
+			<Header id="wimsa" type="h2" link-target="true">
 				<html>WIMSA Grouping</html>
 			</Header>
-			<Select marker='parent-text' text='WIMSA Grouping' recurse='true'>
-				<html><i class="icon-plus"></i><span class='muted'> Count: </span></html>
-				<Badge color='grey' select='count' />
+			<Select marker="parent-text" text="WIMSA Grouping" recurse="true">
+				<html><i class="icon-plus"></i><span class="muted"> Count: </span></html>
+				<Badge color="grey" select="count"></Badge>
 			</Select>
 		</Collapse>
-		<Collapse type='collapsed'>
-			<List name='people' marker='parent-text' text='WIMSA Grouping' recurse='true'/>
+		<Collapse type="collapsed">
+			<List name="people" marker="parent-text" text="WIMSA Grouping" recurse="true"></List>
 		</Collapse>
 	</Heading>
 
-	<Heading id='applications' name='Applications' suppress='true'>
-		<Collapse type='summary'>
-			<html><hr/></html>
-			<Header id='applications' type='h2' link-target='true'>
+	<Heading id="applications" name="Applications" suppress="true">
+		<Collapse type="summary">
+			<html><hr></hr></html>
+			<Header id="applications" type="h2" link-target="true">
 				<html>Applications</html>
 			</Header>
-			<Select marker='parent-text' text='Applications' recurse='true'>
-				<html><i class="icon-plus"></i><span class='muted'> Count: </span></html>
-				<Badge color='grey' select='count' />
+			<Select marker="parent-text" text="Applications" recurse="true">
+				<html><i class="icon-plus"></i><span class="muted"> Count: </span></html>
+				<Badge color="grey" select="count"></Badge>
 			</Select>
 		</Collapse>
-		<Collapse type='collapsed'>
-			<List name='applications' marker='parent-text' text='Applications' recurse='true'/>
+		<Collapse type="collapsed">
+			<List name="applications" marker="parent-text" text="Applications" recurse="true"></List>
 		</Collapse>
 	</Heading>
-	<Heading id='vendors' name='Vendors' suppress='true'>
-		<Collapse type='summary'>
-			<html><hr/></html>
-			<Header id='vendors' type='h2' link-target='true'>
+	<Heading id="vendors" name="Vendors" suppress="true">
+		<Collapse type="summary">
+			<html><hr></hr></html>
+			<Header id="vendors" type="h2" link-target="true">
 				<html>Vendors</html>
 			</Header>
-			<Select marker='parent-text' text='Vendors'>
-				<html><i class="icon-plus"></i><span class='muted'> Count: </span></html>
-				<Badge color='grey' select='count' />
+			<Select marker="parent-text" text="Vendors">
+				<html><i class="icon-plus"></i><span class="muted"> Count: </span></html>
+				<Badge color="grey" select="count"></Badge>
 			</Select>
 		</Collapse>
 		
-		<Collapse type='collapsed'>
-			<Table name='vendors' marker='parent-text' text='Vendors'>
-				<Column name='#' select='position'/>
-				<Column name='Company'>
-					<Collapse type='summary' id='vendor'>
-						<Value select='node'/>
-						<Select marker='node'>
-							<Badge color='grey' class='pull-right' select='count' />
+		<Collapse type="collapsed">
+			<Table name="vendors" marker="parent-text" text="Vendors">
+				<Column name="#" select="position"></Column>
+				<Column name="Company">
+					<Collapse type="summary" id="vendor">
+						<Value select="node"></Value>
+						<Select marker="node">
+							<Badge color="grey" class="pull-right" select="count"></Badge>
 						</Select>
 					</Collapse>
 				</Column>
-				<Column name='Product' >
-					<Collapse type='collapsed' id='vendor'>
-					<Table name='vendors' marker='node'>
-						<Column name='Product' select='.'/>
-						<Column name='Check'>
+				<Column name="Product">
+					<Collapse type="collapsed" id="vendor">
+					<Table name="vendors" marker="node">
+						<Column name="Product" select="."></Column>
+						<Column name="Check">
 						<html>
-							<label class="checkbox"><Input type="checkbox" persist='true' value='Present' key='current'/> Present? </label>
+							<label class="checkbox"><Input type="checkbox" persist="true" value="Present" key="current"></Input> Present? </label>
 						</html>
 						</Column>
 					</Table>
