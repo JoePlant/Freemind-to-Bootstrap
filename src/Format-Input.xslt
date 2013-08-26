@@ -17,9 +17,6 @@
 				<xsl:with-param name='context' select='$context'/>
 			</xsl:apply-templates>
 		</xsl:when>
-		<xsl:otherwise>
-			<div>!!! No Marker found</div>
-		</xsl:otherwise>
 	</xsl:choose>
   </xsl:template>
    
