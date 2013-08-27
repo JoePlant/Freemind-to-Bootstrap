@@ -22,6 +22,7 @@
 	 <xsl:include href='Format-Value.xslt'/>
 	 <xsl:include href='Format-Input.xslt'/>
 	 <xsl:include href='Format-TextArea.xslt'/>
+	 <xsl:include href='Format-Lookup.xslt'/>
 	 
 	 <xsl:param name='debug'>1</xsl:param>
 	 
@@ -120,6 +121,13 @@
           <a class="brand" href="#"> <i class="icon-home icon-white"/> <xsl:value-of select='/map/node/@TEXT'/></a>
           <div class="nav-collapse collapse">
 
+			<xsl:variable name='data-enabled-class'>
+				<xsl:choose>
+					<xsl:when test='$allow-input > 0'/>
+					<xsl:otherwise>disabled</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+		  
 			<!-- <p class='navbar-text pull-right'><a href="#about" data-toggle="modal" title='About'> <i class="icon-info-sign"/></a></p>  -->
 			<div class="btn-group pull-right">
 			  <button class="btn btn-inverse"><i class="icon-tasks icon-white"/> Menu</button>
@@ -127,10 +135,10 @@
 				<span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu">
-				<li><a tabindex="-1" href="#data" data-toggle="modal" title='About' id='menu-data-save'><i class="icon-hdd" /> Save data</a></li>
-				<li><a tabindex="-1" href="#"><i class="icon-upload" /> Load form</a></li>
+				<li class='{$data-enabled-class}'><a tabindex="-1" href="#data" data-toggle="modal" title='About' id='menu-data-save'><i class="icon-hdd" /> Save data</a></li>
+				<li class='{$data-enabled-class}'><a tabindex="-1" href="#"><i class="icon-upload" /> Load form</a></li>
 				<li class="divider"/>
-				<li><a tabindex="-1" href="#" id='menu-flush-data'><i class="icon-info-sign" /> Clear all</a></li>
+				<li class='{$data-enabled-class}'><a tabindex="-1" href="#" id='menu-flush-data'><i class="icon-info-sign" /> Clear all</a></li>
 				<li class="divider"/>
 				<li><a tabindex="-1" href="#" id='menu-hide-all'><i class="icon-chevron-up" /> Collapse all</a></li>
 				<li><a tabindex="-1" href="#" id='menu-show-all'><i class="icon-chevron-down" /> Show all</a></li>
