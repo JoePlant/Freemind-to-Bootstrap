@@ -36,7 +36,6 @@
   <xsl:template match='node' mode='section'>
 	<xsl:param name='section'/>
 	<xsl:variable name='node' select='.'/>
-	<xsl:variable name='unique-id' select="concat(generate-id($node), '-', generate-id($section))"/>
 
 	<xsl:apply-templates select='$section/*'>
 		<xsl:with-param name='node' select='$node'/>
