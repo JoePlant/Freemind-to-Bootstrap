@@ -9,44 +9,32 @@
 		<xsl:with-param name='context' select='$context'/>
 	</xsl:call-template>
 	<xsl:choose>
-		<xsl:when test="@marker='icon'">
-			<xsl:variable name="icon" select="@icon"/>
-			<xsl:variable name='nodes' select="$context/descendant-or-self::node[icon/@BUILTIN=$icon]"/>
+		<xsl:when test="@select='parent'">
+			<xsl:variable name='nodes' select="$context/.."/>
 			<xsl:apply-templates select="$nodes" mode='header'>
 				<xsl:with-param name='header' select ='.'/>
 			</xsl:apply-templates>
 		</xsl:when>
-		<xsl:when test="@marker='parent-text'">
-			<xsl:variable name="text" select="@text"/>
-			<xsl:variable name='nodes' select="$context/descendant-or-self::node[@TEXT=$text]/node"/>
-			<xsl:apply-templates select="$nodes" mode='header'>
-				<xsl:with-param name='header' select ='.'/>
-			</xsl:apply-templates>
-		</xsl:when>
-		<xsl:when test="@marker='text'">
-			<xsl:variable name="text" select="@text"/>
-			<xsl:variable name='nodes' select="$context/descendant-or-self::node[@TEXT=$text]"/>
+		<xsl:when test="@select='parent.parent'">
+			<xsl:variable name='nodes' select="$context/.."/>
 			<xsl:apply-templates select="$nodes" mode='header'>
 				<xsl:with-param name='header' select ='.'/>
 			</xsl:apply-templates>
 		</xsl:when>
 		<xsl:when test="@select='node'">
-			<xsl:variable name="text" select="@text"/>
-			<xsl:variable name='nodes' select="$context"/>
+			<xsl:variable name='nodes' select="$context/node"/>
 			<xsl:apply-templates select="$nodes" mode='header'>
 				<xsl:with-param name='header' select ='.'/>
 			</xsl:apply-templates>
 		</xsl:when>
 		<xsl:when test="@select='current'">
-			<xsl:variable name="text" select="@text"/>
 			<xsl:variable name='nodes' select="$context"/>
 			<xsl:apply-templates select="$nodes" mode='header'>
 				<xsl:with-param name='header' select ='.'/>
 			</xsl:apply-templates>
 		</xsl:when>
-		<xsl:when test="not(@select) and not(@marker)">
+		<xsl:when test="not(@select)">
 			<xsl:variable name="text" select="@text"/>
-			<xsl:variable name='nodes' select="$context"/>
 			<xsl:call-template name='render-header'>
 				<xsl:with-param name='header' select='.'/>
 				<xsl:with-param name='node'/>
@@ -54,7 +42,7 @@
 			</xsl:call-template>
 		</xsl:when>
 		<xsl:otherwise>
-			<div>!!! No Marker found</div>
+			<div>!!! No Select found</div>
 		</xsl:otherwise>
 	</xsl:choose>
   </xsl:template>
