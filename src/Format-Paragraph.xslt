@@ -43,7 +43,12 @@
   <xsl:template match='node' mode='paragraph'>
 	<xsl:param name='paragraph'/>
 	<xsl:variable name='node' select='.'/>
-	<p><xsl:value-of select='$node/@TEXT' /></p>
+	<xsl:element name='p'>
+		<xsl:if test='$paragraph/@class'>
+			<xsl:attribute name='class'><xsl:value-of select='$paragraph/@class'/></xsl:attribute>
+		</xsl:if>
+		<xsl:value-of select='$node/@TEXT' />
+	</xsl:element>
   </xsl:template>
   
  </xsl:stylesheet>
