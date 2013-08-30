@@ -88,7 +88,7 @@
 					<xsl:with-param name='context' select='$context'/>
 				</xsl:apply-templates>
 			</xsl:when>
-			<xsl:when test='$node/@TEXT'>
+			<xsl:when test='$header/@select and $node/@TEXT'>
 				<xsl:value-of select='$node/@TEXT' />
 			</xsl:when>
 			<xsl:when test='$header/@text'>
