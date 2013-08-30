@@ -27,7 +27,7 @@
 	<xsl:param name='textarea'/>
 	<xsl:variable name='node' select='.'/>
 	<xsl:choose> 
-		<xsl:when test='$allow-input > 0'>
+		<xsl:when test='$allow-data > 0'>
 			<textarea>
 				<xsl:apply-templates select='$textarea/@*' mode='textarea'>
 					<xsl:with-param name='textarea' select='$textarea'/>
@@ -59,7 +59,12 @@
 			<xsl:if test="not($textarea/@class)">
 				<xsl:attribute name='class'>persist</xsl:attribute>
 			</xsl:if>
-			</xsl:when>
+		</xsl:when>
+		<xsl:when test="name() = 'placeholder'">
+			<xsl:if test='$render-input-placeholder > 0'>
+				<xsl:copy/>
+			</xsl:if>
+		</xsl:when>
 		<xsl:otherwise>
 			<xsl:copy />
 		</xsl:otherwise>

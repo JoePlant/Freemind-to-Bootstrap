@@ -23,16 +23,72 @@
 	 <xsl:include href='Format-Input.xslt'/>
 	 <xsl:include href='Format-TextArea.xslt'/>
 	 <xsl:include href='Format-Lookup.xslt'/>
-	 
-	 <xsl:param name='debug'>1</xsl:param>
-	 
-	 <xsl:param name='show-menu'>1</xsl:param>
-	 <xsl:param name='allow-input'>1</xsl:param>
-	 <xsl:param name='screen-width'>10</xsl:param>
-<!--	 <xsl:param name='screen-width'>4</xsl:param> -->
 	
 	<xsl:param name='parameters'>parameters.xml</xsl:param>
 	<xsl:variable name='doc-parameters' select='document($parameters)'/>
+	
+	<xsl:variable name='show-menu-top'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>include-header-menu</xsl:with-param>
+			<xsl:with-param name='default'>1</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+	
+	<xsl:variable name='show-menu-side'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>include-side-menu</xsl:with-param>
+			<xsl:with-param name='default'>1</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+	
+	<xsl:variable name='debug'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>debug-level</xsl:with-param>
+			<xsl:with-param name='default'>1</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+
+	<xsl:variable name='screen-width'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>width</xsl:with-param>
+			<xsl:with-param name='default'>10</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+	
+	<xsl:variable name='lines-per-input'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>lines-per-input</xsl:with-param>
+			<xsl:with-param name='default'>0</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+	
+	<xsl:variable name='render-input-placeholder'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>render-input-placeholder</xsl:with-param>
+			<xsl:with-param name='default'>1</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+	
+	<xsl:variable name='allow-data'>
+		<xsl:call-template name='get-parameter'>
+			<xsl:with-param name='name'>allow-data</xsl:with-param>
+			<xsl:with-param name='default'>1</xsl:with-param>
+		</xsl:call-template>
+	</xsl:variable>
+	
+	<xsl:template name='get-parameter'>
+		<xsl:param name='name'/>
+		<xsl:param name='default'/>
+		<xsl:variable name='parameter' select='$doc-parameters/Parameters/Parameter[@name=$name]'/>
+		<xsl:choose>
+			<xsl:when test='count($parameter) = 0'>	
+				<xsl:value-of select='$default'/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select='$parameter/@value'/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 	
 	<xsl:variable name='root' select='/'/>
 	
@@ -65,19 +121,21 @@
       <body data-spy="scroll" data-target=".sidebar-nav">
 		<xsl:variable name='headings' select='$doc-parameters/Parameters/Heading'/>
 		
-		<xsl:call-template name="build-top-menu">
-			<xsl:with-param name="nodes" select='$headings'/>
-		</xsl:call-template>	
-	
+		<xsl:if test='$show-menu-top > 0'>
+			<xsl:call-template name="build-top-menu">
+				<xsl:with-param name="nodes" select='$headings'/>
+			</xsl:call-template>	
+		</xsl:if>
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2">
-					<xsl:if test='$show-menu > 0'>
+				<xsl:if test='$show-menu-side > 0'>
+					<div class="span2">
 						<xsl:call-template name="build-side-menu">
 							<xsl:with-param name="nodes" select='$headings'/>
 						</xsl:call-template>	
-					</xsl:if>
-				</div>
+					</div>
+				</xsl:if>
+
 				<div class='{concat("span", $screen-width)}'>
 					<xsl:call-template name='output-parameters-error'/>					
 					<hr/>
@@ -120,13 +178,6 @@
           </button>
           <a class="brand" href="#"> <i class="icon-home icon-white"/> <xsl:value-of select='/map/node/@TEXT'/></a>
           <div class="nav-collapse collapse">
-
-			<xsl:variable name='data-enabled-class'>
-				<xsl:choose>
-					<xsl:when test='$allow-input > 0'/>
-					<xsl:otherwise>disabled</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>
 		  
 			<!-- <p class='navbar-text pull-right'><a href="#about" data-toggle="modal" title='About'> <i class="icon-info-sign"/></a></p>  -->
 			<div class="btn-group pull-right">
@@ -135,11 +186,13 @@
 				<span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu">
-				<li class='{$data-enabled-class}'><a tabindex="-1" href="#data" data-toggle="modal" title='About' id='menu-data-save'><i class="icon-hdd" /> Save data</a></li>
-				<li class='{$data-enabled-class}'><a tabindex="-1" href="#"><i class="icon-upload" /> Load form</a></li>
+				<xsl:if test='$allow-data > 0'>
+				<li><a tabindex="-1" href="#data" data-toggle="modal" title='About' id='menu-data-save'><i class="icon-hdd" /> Save data</a></li>
+				<li><a tabindex="-1" href="#"><i class="icon-upload" /> Load form</a></li>
 				<li class="divider"/>
-				<li class='{$data-enabled-class}'><a tabindex="-1" href="#" id='menu-flush-data'><i class="icon-info-sign" /> Clear all</a></li>
+				<li><a tabindex="-1" href="#" id='menu-flush-data'><i class="icon-info-sign" /> Clear all</a></li>
 				<li class="divider"/>
+				</xsl:if>
 				<li><a tabindex="-1" href="#" id='menu-hide-all'><i class="icon-chevron-up" /> Collapse all</a></li>
 				<li><a tabindex="-1" href="#" id='menu-show-all'><i class="icon-chevron-down" /> Show all</a></li>
 				<li class="divider"/>

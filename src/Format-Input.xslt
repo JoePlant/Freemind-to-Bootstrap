@@ -24,7 +24,7 @@
 	<xsl:param name='input'/>
 	<xsl:variable name='node' select='.'/>
 	<xsl:choose> 
-		<xsl:when test='$allow-input > 0'>
+		<xsl:when test='$allow-data > 0'>
 			<input>
 				<xsl:apply-templates select='$input/@*' mode='input'>
 					<xsl:with-param name='input' select='$input'/>
@@ -36,10 +36,24 @@
 			<i class='icon-edit'/> 
 		</xsl:when>
 		<xsl:otherwise>
-			<div class='muted'> <i class='icon-pencil' /> <xsl:value-of select='$input/@placeholder'/>
-				<br/>
-			</div>
+			<span class='muted'> <i class='icon-pencil' /> <xsl:value-of select='$input/@placeholder'/></span>
+				<xsl:call-template name='render-br'>
+					<xsl:with-param name='count' select='$lines-per-input'/>
+				</xsl:call-template>
 		</xsl:otherwise>
+	</xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name='render-br'>
+	<xsl:param name='count'>0</xsl:param>
+	<xsl:choose>
+		<xsl:when test='$count > 0'>
+			<br/>
+			<xsl:call-template name='render-br'>
+				<xsl:with-param name='count' select= '$count - 1'/>
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:otherwise/>
 	</xsl:choose>
   </xsl:template>
   
@@ -63,6 +77,11 @@
 					<xsl:value-of select='.'/>
 					<xsl:text> persist</xsl:text>
 				</xsl:attribute>
+		</xsl:when>
+		<xsl:when test="name() = 'placeholder'">
+			<xsl:if test='$render-input-placeholder > 0'>
+				<xsl:copy/>
+			</xsl:if>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:copy />

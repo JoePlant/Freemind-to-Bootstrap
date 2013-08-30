@@ -16,7 +16,7 @@
 				<xsl:with-param name='value' select='.'/>
 			</xsl:call-template>
 		</xsl:when>	
-		<xsl:when test="@select='node'">
+		<xsl:when test="@select='current'">
 			<xsl:call-template name='render-value'>
 				<xsl:with-param name='text' select='$node/@TEXT'/>
 				<xsl:with-param name='value' select='.'/>
@@ -31,6 +31,12 @@
 		<xsl:when test="@select='parent.parent'">
 			<xsl:call-template name='render-value'>
 				<xsl:with-param name='text' select='$node/../../@TEXT'/>
+				<xsl:with-param name='value' select='.'/>
+			</xsl:call-template>
+		</xsl:when>
+		<xsl:when test="@select='position'">
+			<xsl:call-template name='render-value'>
+				<xsl:with-param name='text' select='count($node/preceding-sibling::node) + 1'/>
 				<xsl:with-param name='value' select='.'/>
 			</xsl:call-template>
 		</xsl:when>

@@ -4,7 +4,10 @@
 				
   <xsl:template match='Section' >
 	<xsl:param name='context'/>
-	<xsl:call-template name='node-as-comment'/>
+	<xsl:call-template name='node-as-comment' />
+	<xsl:call-template name='check-context-is-set'>
+		<xsl:with-param name='context' select='$context'/>
+	</xsl:call-template>
 	<xsl:choose>	
 		<xsl:when test="@marker='icon'">
 			<xsl:variable name="icon" select="@icon"/>
