@@ -1,6 +1,6 @@
 Input
 =====
-> Used to put an Input element in the system that will be matched to the Mind Map node.
+> Renders an Input element for the current mind-map node.
 
 **Attributes:**
 * @persist - Should the element's value be persisted across sessions.
@@ -10,7 +10,8 @@ Input
 		* true : the input is marked up to persist the values
 		* false : the input with 
 * @key - how to select the node
-* @class : the CSS class for the input element
+* @class - the CSS class for the input element
+* @placeholder - standard html placeholder input
 
 **Examples:**
 ```
