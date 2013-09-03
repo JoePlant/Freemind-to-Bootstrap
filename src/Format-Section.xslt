@@ -16,6 +16,13 @@
 				<xsl:with-param name='section' select ='.'/>
 			</xsl:apply-templates>
 		</xsl:when>
+		<xsl:when test="@marker='parent-icon'">
+			<xsl:variable name="icon" select="@icon"/>
+			<xsl:variable name='nodes' select="$context/descendant-or-self::node[icon/@BUILTIN=$icon]/node"/>
+			<xsl:apply-templates select="$nodes" mode='section'>
+				<xsl:with-param name='section' select ='.'/>
+			</xsl:apply-templates>
+		</xsl:when>
 		<xsl:when test="@marker='parent-text'">
 			<xsl:variable name="text" select="@text"/>
 			<xsl:variable name='nodes' select="$context/descendant-or-self::node[@TEXT=$text]/node"/>
