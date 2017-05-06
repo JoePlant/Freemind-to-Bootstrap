@@ -26,6 +26,3 @@ Elements
 * [TextArea](doc/TextArea.md)
 
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/JoePlant/freemind-to-bootstrap/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
